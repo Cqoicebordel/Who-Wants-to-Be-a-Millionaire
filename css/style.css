@@ -1,5 +1,12 @@
+:root{
+	/* Size of the central block */
+	--main-width:1300px;
+}
+
 body {
 	background: black;
+	background-image: url("../img/GVGDM_template_background_002.jpg");
+	background-size:cover;
 	font-family: 'Roboto Slab', serif;
 }
 
@@ -7,8 +14,17 @@ audio {
 	display: none;
 }
 
+#splash{
+	display:block;
+	margin: 0 auto;
+}
+
 .clear {
 	clear: both;
+}
+
+.palier{
+	color: #FF7E00;
 }
 
 #game {
@@ -17,19 +33,31 @@ audio {
 }
 
 #top {
-	width: 960px;
-	margin: 0 auto;
+	position: fixed;
+	right: 50px;
+}
+
+#controls{
+	float: left;
+	color: white;
+	text-align:left;
+}
+
+#questionnaire{
+	font-weight:bolder;
 }
 
 #levels {
 	float: right;
-	list-style: none;
-	margin: 0;
 	padding: 0;
 	color: white;
 	text-align: right;
-	margin-top: 40px;
-	font-size: 1.3em;
+	font-size: 1.5em;
+}
+
+#levels li:after{
+	/* Change the money symbol here */
+	content:" €";
 }
 
 .active {
@@ -39,23 +67,53 @@ audio {
 }
 
 #options {
-	width: 960px;
+	width: var(--main-width);
 	height: 70px;
 	margin: 0 auto;
+	padding: 20px;
 }
 
 #question-box {
-	background: #ddd;
-	width: 960px;
-	margin: 0 auto;
-	padding: 10px;
-	font-size: 1.5em;
+	color:white;
+	width: calc(var(--main-width) - 138px);
+	margin: 40px auto;
+	padding: 30px 70px;
+	font-size: 1.6em;
+	margin-top:20px;
+	background: url(../img/forme-question.svg) no-repeat center;
+    background-size: 100% 100%
+}
+
+.content{
+	vertical-align:super;
+}
+
+.qselected{
+	background-image:url(../img/forme-reponse-selected.svg) !important;
+	color:black;
+}
+
+.qtrue{
+	background-image:url(../img/forme-reponse-true.svg) !important;
+}
+
+.qfalse{
+	background-image:url(../img/forme-reponse-false.svg) !important;
 }
 
 .big-text {
 	color: #FF7E00;
-	font-size: 2em;
+	font-size: 2.1em;
 	margin-right: 15px;
+}
+
+.giant-text {
+	font-size: 3.1em;
+	font-weight: bolder;
+}
+
+.qselected .big-text{
+	color: #FFF;
 }
 
 #money {
@@ -65,14 +123,13 @@ audio {
 	float: right;
 	display: block;
 	height: 50px;
-	padding-top: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
 }
 
-#logo {
-	width: 480px;
-	float: left;
-	margin-left: 240px;
-	margin-top: 60px;
+#money:after{
+	/* Change the money symbol here */
+	content: " €";
 }
 
 #game-over {
@@ -80,34 +137,67 @@ audio {
 	font-size: 8em;
 	font-weight: bold;
 	color: white;
-	width: 980px;
+	width: calc(var(--main-width) + 20px);
 	margin-top: 300px;
 	margin: 0 auto;
 	text-align: center;
 }
 
 #fifty {
-	background: url('../img/50-50.png') no-repeat 0 0;
+	background-image: url('../img/jokers/50.png');
+}
+
+#fifty:hover {
+	background-image: url('../img/jokers/50-selected.png');
 }
 
 #phone-friend {
-	background: url('../img/phone-friend.png') no-repeat 0 0;
+	background-image: url('../img/jokers/phone.png');
+}
+
+#phone-friend:hover {
+	background-image: url('../img/jokers/phone-selected.png');
 }
 
 #audience {
-	background: url('../img/audience.png') no-repeat 0 0;
+	background-image: url('../img/jokers/public.png');
+}
+
+#audience:hover {
+	background-image: url('../img/jokers/public-selected.png');
 }
 
 #answer-box {
 	color: white;
-	font-size: 1.3em;
+	font-size: 1.5em;
 	text-align: left;
-	width: 960px;
+	width: calc(var(--main-width) + 30px);
 	margin: 0 auto;
+	display: table;
+	border-collapse: separate;
+    border-spacing: 15px;
+}
+
+.row{
+	display: table-row;
 }
 
 #pre-start {
+	color: white;
 	display: none;
+}
+
+.answer{
+	padding: 20px 60px;
+	display: table-cell;
+	width: 500px;
+	background: url(../img/forme.svg) no-repeat center;
+	background-size: 100% 100%;
+	vertical-align: middle;
+}
+
+.answer-text{
+	vertical-align:super;
 }
 
 .answer:hover {
@@ -122,8 +212,44 @@ audio {
 	float: left;
 	background-position: 0 0;
 	cursor: pointer;
+	background-size:cover;
 }
 
-.options-button:hover {
-	background-position: 0 -64px !important;
+#gagne{
+	color: #FF7E00;
+	width: 1200px;
+	margin: 0 auto;
+	display: none;
+}
+
+#cheque{
+	width:100%;
+}
+
+#congratulations{
+	margin: 42px;
+}
+
+.perdu {
+	color:red;
+}
+
+.perdu span{
+	margin: 42px;
+}
+
+#perdu-palier0,
+#perdu-palier1,
+#perdu-palier2{
+	display:none;
+}
+
+.author{
+	font-style: italic;
+	font-size: 0.8em;
+	text-align: right;
+	margin-right: 40px;
+	margin-bottom: 5px;
+	/* Change the display:none to display:block to show the authors of the questions */
+	display: none; /* block*/
 }
