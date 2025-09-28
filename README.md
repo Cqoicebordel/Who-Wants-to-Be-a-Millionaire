@@ -8,6 +8,8 @@ Of course, there were also language and money symbol changes.
 
 But also a few tools were added, like the possibility to set the volume, or to jump to a specific question, etc.
 
+You can see a [preview of the interface](https://cqoicebordel.net/Who-Wants-to-Be-a-Millionaire/)
+
 # Usage
 
 To "install" this game, you will need a simple webserver that can serve static files (Apache will do). You simply upload this git repository into a folder on the web server, and access index.html in your browser.
