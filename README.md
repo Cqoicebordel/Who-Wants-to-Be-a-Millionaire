@@ -71,3 +71,5 @@ The sounds and images used from Who Wants to Be a Millionaire, and the questions
 The added sounds for this fork are from this [Youtube video](https://www.youtube.com/watch?v=MForOVuA6hs).
 
 The background image and the images of the jokers are from [Kaloo](http://www.pascallamarque.com), who was a huge help. He also did several extra images that are specific to the Twitch creator, so sadly are not in this repo.
+
+Also, a huge thanks to the [Gilles Stella](https://www.twitch.tv/gilles_stella) community for their help and for writing lots of fun questions ! The [Gilles Stella Discord](https://discord.gg/EfGkkvV9) is awesome !
