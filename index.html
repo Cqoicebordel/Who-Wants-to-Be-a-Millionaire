@@ -1,80 +1,110 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
 Who Wants to Be a Millionaire Quiz Game Markup
 Intended to Play a Single Game.
 WWBAM materials used under fair use for academic/scholar use, should not be
 distributed otherwise.
 
-Author: Aaron Nech
+Author: Aaron Nech and Cqoicebordel
 -->
 <html>
 	<head>
 		<link href="http://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>Gilles Veut Gagner Des Millions</title>
 	</head>
 	<body>
 		<!-- HTML5 Audio tags - weakly supported, works in Chrome(tested) -->
 		<audio id="background" src='sound/background.mp3'></audio>
 		<audio id="rightsound" src='sound/right.mp3'></audio>
 		<audio id="wrongsound" src='sound/wrong.mp3'></audio>
+		<audio id="50" src='sound/50.mp3'></audio>
+		<audio id="millionwin" src='sound/millionwin.mp3'></audio>
 
 		<!-- Before the game begins problem set selection -->
 		<div id="pre-start">
+			Questionnaire n°
 			<select id="problem-set">
 			</select>
-			<button id="start">Start!</button>
+			<button id="start">Démarrer !</button><br />
+			<img id="splash" src="img/logo.jpg" />
 		</div>
 
 		<!-- Shown when the player wins/loses -->
 		<div id="game-over">
 		</div>
+		
 
 		<!-- The actual game markup -->
 		<div id="game">
+			<div id="controls">
+				<div>Questionnaire n° <span id="questionnaire" data-bind="text: getQuestionnaire()"></span></div>
+				<div>Volume : <input type="range" id="volume-slider" value="100"></div>
+				<div>Aller à la question n°<input type="number" id="question-number" name="question-number" step="1" min="1" max="15" /><button id="goq">Go !</button></div>
+			</div>
 			<div id="top">
-				<img src="img/logo.jpg" id="logo" />
-				<ul id="levels">
-					<li data-bind="css: {active: level() == 15}" data-amt="1000000" data-lvl="15">$1,000,000</li>
-					<li data-bind="css: {active: level() == 14}" data-amt="500000" data-lvl="14">$500,000</li>
-					<li data-bind="css: {active: level() == 13}" data-amt="250000" data-lvl="13">$250,000</li>
-					<li data-bind="css: {active: level() == 12}" data-amt="125000" data-lvl="12">$125,000</li>
-					<li data-bind="css: {active: level() == 11}" data-amt="64000" data-lvl="11">$64,000</li>
-					<li data-bind="css: {active: level() == 10}" data-amt="32000" data-lvl="10">$32,000</li>
-					<li data-bind="css: {active: level() == 9}" data-amt="16000" data-lvl="9">$16,000</li>
-					<li data-bind="css: {active: level() == 8}" data-amt="8000" data-lvl="8">$8,000</li>
-					<li data-bind="css: {active: level() == 7}" data-amt="4000" data-lvl="7">$4,000</li>
-					<li data-bind="css: {active: level() == 6}" data-amt="2000" data-lvl="6">$2,000</li>
-					<li data-bind="css: {active: level() == 5}" data-amt="1000" data-lvl="5">$1,000</li>
-					<li data-bind="css: {active: level() == 4}" data-amt="500" data-lvl="4">$500</li>
-					<li data-bind="css: {active: level() == 3}" data-amt="300" data-lvl="3">$300</li>
-					<li data-bind="css: {active: level() == 2}" data-amt="200" data-lvl="2">$200</li>
-					<li data-bind="css: {active: level() == 1}" data-amt="100" data-lvl="1">$100</li>
-				</ul>
+				<ol id="levels" reversed>
+					<li class="palier" data-bind="css: {active: level() == 15}" data-amt="10000000000000" data-lvl="15">10 000 000 000 000</li>
+					<li data-bind="css: {active: level() == 14}" data-amt="300000" data-lvl="14">300 000</li>
+					<li data-bind="css: {active: level() == 13}" data-amt="150000" data-lvl="13">150 000</li>
+					<li data-bind="css: {active: level() == 12}" data-amt="72000" data-lvl="12">72 000</li>
+					<li data-bind="css: {active: level() == 11}" data-amt="36000" data-lvl="11">36 000</li>
+					<li class="palier" data-bind="css: {active: level() == 10}" data-amt="24000" data-lvl="10">24 000</li>
+					<li data-bind="css: {active: level() == 9}" data-amt="12000" data-lvl="9">12 000</li>
+					<li data-bind="css: {active: level() == 8}" data-amt="8000" data-lvl="8">8 000</li>
+					<li data-bind="css: {active: level() == 7}" data-amt="4000" data-lvl="7">4 000</li>
+					<li data-bind="css: {active: level() == 6}" data-amt="2000" data-lvl="6">2 000</li>
+					<li class="palier" data-bind="css: {active: level() == 5}" data-amt="1000" data-lvl="5">1 000</li>
+					<li data-bind="css: {active: level() == 4}" data-amt="500" data-lvl="4">500</li>
+					<li data-bind="css: {active: level() == 3}" data-amt="300" data-lvl="3">300</li>
+					<li data-bind="css: {active: level() == 2}" data-amt="200" data-lvl="2">200</li>
+					<li data-bind="css: {active: level() == 1}" data-amt="100" data-lvl="1">100</li>
+				</ol>
 				<div class="clear"></div>
 			</div>
 			<div id="options">
 				<div id="fifty" class="options-button" data-bind="click: fifty"></div>
-				<div id="phone-friend" class="options-button" data-bind="click: fadeOutOption"></div>
-				<div id="audience" class="options-button" data-bind="click: fadeOutOption"></div>
-				<div id="money">$<span data-bind="text: formatMoney()"></span></div>
+				<div id="phone-friend" class="options-button" data-bind="click: fadeOutOptionPhone"></div>
+				<div id="audience" class="options-button" data-bind="click: fadeOutOptionPublic"></div>
+				<div id="money"><span data-bind="text: formatMoney()"></span></div>
 			</div>
 			<div id="question-box">
-				<span class="big-text">Q:</span>
-				<span class="content" data-bind="text: getQuestionText()"></span>
+				<span class="big-text">Q.</span>
+				<span class="content" data-bind="text: getQuestionText()"></span><br />
+				<span class="author" data-bind="text: getAuthor()"></span>
 			</div>
 			<div id="answer-box">
-				<div id="answer-one" class="answer" data-bind="click: function() { answerQuestion(0, $element.id) }">
-					<span class="big-text">A.</span><span data-bind="text: getAnswerText(0)"></span>
+				<div class="row">
+					<div id="answer-one" class="answer" data-bind="click: function() { answerQuestion(0, $element.id) }">
+						<span class="big-text">A.</span><span class="answer-text" data-bind="text: getAnswerText(0)"></span>
+					</div>
+					<div id="answer-two" class="answer" data-bind="click: function() { answerQuestion(1, $element.id) }">
+						<span class="big-text">B.</span><span class="answer-text" data-bind="text: getAnswerText(1)"></span>
+					</div>
 				</div>
-				<div id="answer-two" class="answer" data-bind="click: function() { answerQuestion(1, $element.id) }">
-					<span class="big-text">B.</span><span data-bind="text: getAnswerText(1)"></span>
+				<div class="row">
+					<div id="answer-three" class="answer" data-bind="click: function() { answerQuestion(2, $element.id) }">
+						<span class="big-text">C.</span><span class="answer-text" data-bind="text: getAnswerText(2)"></span>
+					</div>
+					<div id="answer-four" class="answer" data-bind="click: function() { answerQuestion(3, $element.id) }">
+						<span class="big-text">D.</span><span class="answer-text" data-bind="text: getAnswerText(3)"></span>
+					</div>
 				</div>
-				<div id="answer-three" class="answer" data-bind="click: function() { answerQuestion(2, $element.id) }">
-					<span class="big-text">C.</span><span data-bind="text: getAnswerText(2)"></span>
-				</div>
-				<div id="answer-four" class="answer" data-bind="click: function() { answerQuestion(3, $element.id) }">
-					<span class="big-text">D.</span><span data-bind="text: getAnswerText(3)"></span>
-				</div>
+			</div>
+			<div id="gagne">
+				<div id="congratulations"><span class="giant-text">🎇 Toutes nos ficelles de caleçons !!! 🎇</span></div>
+			</div>
+			<div id="perdu-palier0" class="perdu">
+				<div><span class="giant-text">Tu as gagné 0 €</span></div>
+				<div><span class="giant-text">C'est pas très brillant tout ça…</span></div>
+			</div>
+			<div id="perdu-palier1" class="perdu">
+				<div><span class="giant-text">Tu as gagné 1 000 €</span></div>
+				<div><span class="giant-text">C'est toujours mieux que rien</span></div>
+			</div>
+			<div id="perdu-palier2" class="perdu">
+				<div><span class="giant-text">Tu as gagné 24 000 €</span></div>
+				<div><span class="giant-text">Pas mal, pas mal…</span></div>
 			</div>
 		</div>
 
