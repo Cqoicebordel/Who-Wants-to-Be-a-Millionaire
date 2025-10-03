@@ -273,9 +273,15 @@ var MillionaireModel = function(index, data) {
 // the start game functionality to trigger a game model
 // being created
 $(document).ready(function() {
+	var comments = [];
+	$.getJSON("comments.json", function(data) {
+		$.each( data.comments, function(index, value) {
+			comments.push(value);
+		});
+	});
 	$.getJSON("questions.json", function(data) {
 		for(var i = 1; i <= data.games.length; i++) {
-			$("#problem-set").append('<option value="' + i + '">' + i + '</option>');
+			$("#problem-set").append('<option value="' + i + '">' + i + ' ' + comments[i-1] + '</option>');
 		}
 		$("#pre-start").show();
 		$("#start").click(function() {
