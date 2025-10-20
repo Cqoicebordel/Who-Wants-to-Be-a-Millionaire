@@ -151,12 +151,24 @@ audio {
 	background-image: url('../img/jokers/50-selected.png');
 }
 
-#phone-friend {
+.phone-step1 {
 	background-image: url('../img/jokers/phone.png');
 }
 
-#phone-friend:hover {
+.phone-step1:hover {
 	background-image: url('../img/jokers/phone-selected.png');
+}
+
+.phone-step2 {
+	background-image: url('../img/jokers/phone-step2.png');
+}
+
+.phone-step2:hover {
+	background-image: url('../img/jokers/phone-step2-selected.png');
+}
+
+.phone-used {
+	background-image: url('../img/jokers/phone-used.png');
 }
 
 #audience {
@@ -171,7 +183,7 @@ audio {
 	color: white;
 	font-size: 1.5em;
 	text-align: left;
-	width: calc(var(--main-width) + 30px);
+	width: calc(var(--main-width) + 30px); /*990*/
 	margin: 0 auto;
 	display: table;
 	border-collapse: separate;
@@ -180,6 +192,9 @@ audio {
 
 .row{
 	display: table-row;
+	/*display: block;
+    background: url(../img/point.svg) repeat center;
+    background-size: 10px 100%;*/
 }
 
 #pre-start {
@@ -188,6 +203,8 @@ audio {
 }
 
 .answer{
+	/*background-color:black;
+	/*border: 4px solid #d3d5ff;*/
 	padding: 20px 60px;
 	display: table-cell;
 	width: 500px;
@@ -206,7 +223,7 @@ audio {
 }
 
 .options-button {
-	width: 64px;
+	width: 68px;
 	height: 64px;
 	margin-left: 12px;
 	float: left;
@@ -251,5 +268,24 @@ audio {
 	margin-right: 40px;
 	margin-bottom: 5px;
 	/* Change the display:none to display:block to show the authors of the questions */
-	display: none; /* block*/
+    display: none; /* block*/
+}
+
+.circle-countdown{
+	animation: 30s linear 0s 1 normal countdown;
+	animation-fill-mode: forwards;
+}
+
+@keyframes countdown {
+	0% {
+		stroke-dasharray:180 180;
+	}
+	100% {
+		stroke-dasharray:0 360;
+	}
+}
+
+#countdown {
+	display:none;
+	background-image: url('../img/jokers/empty-green.png');
 }

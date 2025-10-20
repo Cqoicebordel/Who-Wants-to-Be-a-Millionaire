@@ -22,6 +22,7 @@ Number.prototype.money = function(fixed, decimalDelim, breakDelim){
 		  (fixed ? decimalDelim + Math.abs(n - i).toFixed(fixed).slice(2) : "");
 }
 
+
 /**
 * Plays a sound via HTML5 through Audio tags on the page
 *
@@ -50,7 +51,6 @@ function sleep(num) {
 		if(now.getTime() > stop) return;
 	}
 }
-
 
 function setCookie(cname, cvalue) {
 	document.cookie = cname + "=" + cvalue;
@@ -169,7 +169,17 @@ var MillionaireModel = function(index, data) {
  	self.fadeOutOptionPhone = function(item, event) {
  		if(self.transitioning || self.perdu)
  			return;
- 		$(event.target).css("background-image", "url('img/jokers/phone-used.png')");
+ 		if($(event.target).hasClass("phone-step1")){
+			$(event.target).removeClass("phone-step1");
+			$(event.target).addClass("phone-step2");
+			stopSound('background');
+			startSound("phone-intro", true);
+		}else if($(event.target).hasClass("phone-step2")){
+			$(event.target).css("display", "none");
+			$("#countdown").css("display", "block");
+			stopSound('phone-intro');
+			startSound("phone-countdown", false);
+		}
  	}
  	
  	// Fades out an option used if possible
@@ -300,6 +310,14 @@ $(document).ready(function() {
 		for(const audio of audios){
 			audio.volume = e.currentTarget.value / 100;
 		}		
+	});
+	$(".circle-countdown")[0].addEventListener("animationend", function(e){
+		$("#countdown").css("display", "none");
+		$("#phone-friend").css("display", "block");
+		$("#phone-friend").removeClass("phone-step2");
+		$("#phone-friend").addClass("phone-used");
+		sleep(1500);
+		startSound('background', true);
 	});
 	let vol = getCookie("volume");
 	if(vol != ""){
